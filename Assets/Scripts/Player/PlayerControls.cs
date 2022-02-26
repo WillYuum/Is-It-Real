@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Player.Controls
+namespace MainCharacter.Controls
 {
 
     public class PlayerControls : MonoBehaviour
@@ -10,7 +11,7 @@ namespace Player.Controls
         [SerializeField] private float _playerSpeed = 5f;
 
 
-
+        public event Action onClickShootButton;
 
 
         void Update()
@@ -23,6 +24,14 @@ namespace Player.Controls
             if (hor != 0 || ver != 0)
             {
                 HandleMovement(hor, ver);
+            }
+
+
+
+            //shoot
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                PlayerClickedShootButton();
             }
         }
 
@@ -39,6 +48,14 @@ namespace Player.Controls
             Vector2 direction = mousePos - playerPos;
             float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
+        }
+
+
+        private void PlayerClickedShootButton()
+        {
+            if (onClickShootButton == null) return;
+
+            onClickShootButton.Invoke();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace BlurredObject.BlurEffect
+namespace BlurredObjects.BlurEffect
 {
     public class BlurEffectController : MonoBehaviour
     {
