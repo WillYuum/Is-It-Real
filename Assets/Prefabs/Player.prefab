@@ -61,6 +61,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpeed: 5
+  _dashController:
+    DashSpeed: 3
+    CanDash: 1
+    DashCooldown: 1.5
 --- !u!1 &6831213621469733396
 GameObject:
   m_ObjectHideFlags: 0

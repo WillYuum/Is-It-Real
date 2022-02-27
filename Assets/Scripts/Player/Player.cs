@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MainCharacter.Controls;
-using System;
+using DG.Tweening;
 
 namespace MainCharacter
 {
@@ -22,7 +22,8 @@ namespace MainCharacter
 
         private void Start()
         {
-            _playerControls.onClickShootButton += HandlePlayerShoot;
+            _playerControls.OnClickShootButton += HandlePlayerShoot;
+            _playerControls.OnClickDashButton += HandlePlayerDash;
         }
 
         private void HandlePlayerShoot()
@@ -42,6 +43,12 @@ namespace MainCharacter
         }
 
 
+        private void HandlePlayerDash(Vector2 dir)
+        {
+            print("Player dash");
 
+            Vector3 newPos = transform.position + (Vector3)dir * 2f;
+            transform.DOMove(newPos, 0.5f);
+        }
     }
 }
