@@ -14,6 +14,10 @@ namespace MainCharacter
 
         [SerializeField] private LayerMask _shootableLayer;
 
+
+
+        [SerializeField] private Transform _shootPoint;
+
         private void Awake()
         {
             _playerControls = GetComponent<PlayerControls>();
@@ -40,6 +44,8 @@ namespace MainCharacter
                     shootable.ShootTarget();
                 }
             }
+
+            PFXManager.instance.PlayPfx("GunShot", _shootPoint.position);
         }
 
 
