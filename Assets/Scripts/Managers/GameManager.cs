@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils.GenericSingletons;
 
-public class GameManager : MonoBehaviourSingletonPersistent<GameManager>
+public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    // Start is called before the first frame update
+
+
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        AudioManager.instance.Load();
     }
 }

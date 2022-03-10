@@ -46,6 +46,7 @@ namespace MainCharacter
             }
 
             PFXManager.instance.PlayPfx("GunShot", _shootPoint.position);
+            AudioManager.instance.PlaySFX("GunShot");
         }
 
 
