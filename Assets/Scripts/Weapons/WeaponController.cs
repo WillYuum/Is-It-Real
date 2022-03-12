@@ -27,11 +27,20 @@ namespace WeaponCore
 
             if (_weaponConfig.Ammo > 0)
             {
-                _weaponConfig.Ammo--;
                 ToggleCanShoot(false);
 
-                AudioManager.instance.PlaySFX(_weaponConfig.ShootSFX);
-                PFXManager.instance.PlayPfx(_weaponConfig.ShootPFX, _shootPoint.position);
+                _weaponConfig.Ammo--;
+
+                if (_weaponConfig.ShootSFX != null)
+                {
+                    AudioManager.instance.PlaySFX(_weaponConfig.ShootSFX);
+                }
+
+                if (_weaponConfig.ShootPFX != null)
+                {
+                    PFXManager.instance.PlayPfx(_weaponConfig.ShootPFX, _shootPoint.position);
+                }
+
 
                 Invoke(nameof(SwitchToCanShoot), _weaponConfig.ShootDelay);
             }
