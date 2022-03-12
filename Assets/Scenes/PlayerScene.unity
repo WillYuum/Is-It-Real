@@ -213,10 +213,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1290128514229242630, guid: cc7832d0f8a7a8d4cacdea2f44f8df40, type: 3}
-      propertyPath: _sfxConfigs.Array.data[0].Loop
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4404407496805248553, guid: cc7832d0f8a7a8d4cacdea2f44f8df40, type: 3}
       propertyPath: m_Name
       value: Managers

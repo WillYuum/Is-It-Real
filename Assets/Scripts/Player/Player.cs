@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MainCharacter.Controls;
 using DG.Tweening;
-
+using WeaponCore;
 namespace MainCharacter
 {
     [RequireComponent(typeof(PlayerControls))]
@@ -12,15 +12,15 @@ namespace MainCharacter
 
         private PlayerControls _playerControls;
 
+        [SerializeField] private WeaponController _holdingWeapon;
         [SerializeField] private LayerMask _shootableLayer;
 
-
-
-        [SerializeField] private Transform _shootPoint;
 
         private void Awake()
         {
             _playerControls = GetComponent<PlayerControls>();
+
+            _holdingWeapon.Load(GameVariables.instance.GetWeaponConfig(WeaponType.Pistol));
         }
 
 
@@ -32,7 +32,8 @@ namespace MainCharacter
 
         private void HandlePlayerShoot()
         {
-            print("Player shoot");
+            _holdingWeapon.Shoot();
+
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 100f, _shootableLayer);
 
             if (hit.collider != null)
@@ -44,16 +45,11 @@ namespace MainCharacter
                     shootable.ShootTarget();
                 }
             }
-
-            PFXManager.instance.PlayPfx("GunShot", _shootPoint.position);
-            AudioManager.instance.PlaySFX("GunShot");
         }
 
 
         private void HandlePlayerDash(Vector2 dir)
         {
-            print("Player dash");
-
             Vector3 newPos = transform.position + (Vector3)dir * 2f;
             transform.DOMove(newPos, 0.5f);
         }
