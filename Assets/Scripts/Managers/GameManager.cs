@@ -10,5 +10,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     void Start()
     {
         AudioManager.instance.Load();
+        GameloopManager.instance.InvokeLevelStarted();
     }
 }

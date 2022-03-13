@@ -32,7 +32,7 @@ namespace MainCharacter
 
         private void HandlePlayerShoot()
         {
-            _holdingWeapon.Shoot();
+            var shootAction = _holdingWeapon.Shoot();
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 100f, _shootableLayer);
 
@@ -45,6 +45,8 @@ namespace MainCharacter
                     shootable.ShootTarget();
                 }
             }
+
+            GameloopManager.instance.InvokePlayerShotEvent(shootAction);
         }
 
 
