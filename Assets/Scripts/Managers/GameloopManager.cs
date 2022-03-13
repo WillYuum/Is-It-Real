@@ -16,6 +16,8 @@ public class GameloopManager : MonoBehaviourSingleton<GameloopManager>
         LevelStartAction levelStartAction = new LevelStartAction();
         levelStartAction.GunValues = new GunValues(5, 5);//Using pistol as a default
         OnLevelStart?.Invoke(levelStartAction);
+
+        OnLevelStart = null;
     }
 
     public void InvokePlayerShotEvent(GunValues action)
