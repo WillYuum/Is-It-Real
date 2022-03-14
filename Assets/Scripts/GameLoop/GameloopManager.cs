@@ -3,30 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils.GenericSingletons;
-using HUDCore;
 
 public class GameloopManager : MonoBehaviourSingleton<GameloopManager>
 {
-    public event Action<GunValues> OnPlayerShoot;
-    public event Action<LevelStartAction> OnLevelStart;
+    public event Action<GunValues> OnPlayerShootAction;
+    public event Action<LevelStartAction> OnLevelStartAction;
 
 
     public void InvokeLevelStarted()
     {
         LevelStartAction levelStartAction = new LevelStartAction();
         levelStartAction.GunValues = new GunValues(5, 5);//Using pistol as a default
-        OnLevelStart?.Invoke(levelStartAction);
+        OnLevelStartAction?.Invoke(levelStartAction);
 
-        OnLevelStart = null;
+        OnLevelStartAction = null;
     }
 
-    public void InvokePlayerShotEvent(GunValues action)
+    public void InvokePlayerShotAction(GameLoopAction<GunValues> action)
     {
-        OnPlayerShoot?.Invoke(action);
+        GunValues data = (GunValues)action.Value;
+
+        OnPlayerShootAction?.Invoke(data);
     }
 
 
 }
+
 
 
 public struct LevelStartAction
@@ -38,7 +40,6 @@ public struct LevelStartAction
 
 public struct GunValues
 {
-
     public int CurrentCount;
     public int MaxCount;
     public GunValues(int currentCount, int maxCount)
@@ -46,9 +47,11 @@ public struct GunValues
         CurrentCount = currentCount;
         MaxCount = maxCount;
     }
+}
 
-    public static GunValues DidntShoot(int currentVal, int maxVal)
-    {
-        return new GunValues(currentVal, maxVal);
-    }
+public struct GameLoopAction<T> where T : struct
+{
+    public T? Value;
+    public bool hasActionData { get { return Value.HasValue; } }
+
 }

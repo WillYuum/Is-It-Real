@@ -13,12 +13,12 @@ namespace HUDCore.Screen
         {
             SetScreenType(ScreenType.GameScreen);
 
-            GameloopManager.instance.OnPlayerShoot += (v) =>
+            GameloopManager.instance.OnPlayerShootAction += (v) =>
             {
                 UpdateBulletCounter(v.CurrentCount, v.MaxCount);
             };
 
-            GameloopManager.instance.OnLevelStart += (v) =>
+            GameloopManager.instance.OnLevelStartAction += (v) =>
             {
                 UpdateBulletCounter(v.GunValues.CurrentCount, v.GunValues.MaxCount);
             };

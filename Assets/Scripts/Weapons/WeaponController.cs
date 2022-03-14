@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,11 +26,13 @@ namespace WeaponCore
         }
 
 
-        public GunValues Shoot()
+        public GameLoopAction<GunValues> Shoot()
         {
+            var gameLoopAction = new GameLoopAction<GunValues>();
+
             if (_canShoot == false)
             {
-                return GunValues.DidntShoot(_currentAmmo, _weaponConfig.MaxAmmo);
+                return gameLoopAction;
             }
 
             if (_currentAmmo > 0)
@@ -51,13 +54,14 @@ namespace WeaponCore
 
                 Invoke(nameof(SwitchToCanShoot), _weaponConfig.ShootDelay);
 
-                return new GunValues(_currentAmmo, _weaponConfig.MaxAmmo);
+                gameLoopAction.Value = new GunValues(_currentAmmo, _weaponConfig.MaxAmmo);
             }
             else
             {
                 //TODO: Play weapon is empty sound
-                return GunValues.DidntShoot(0, _weaponConfig.MaxAmmo);
             }
+
+            return gameLoopAction;
         }
 
         private void SwitchToCanShoot()
@@ -90,3 +94,4 @@ namespace WeaponCore
         [SerializeField] public string ShootPFX;
     }
 }
+

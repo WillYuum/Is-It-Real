@@ -34,6 +34,8 @@ namespace MainCharacter
         {
             var shootAction = _holdingWeapon.Shoot();
 
+            if (shootAction.hasActionData == false) return;
+
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 100f, _shootableLayer);
 
             if (hit.collider != null)
@@ -46,12 +48,13 @@ namespace MainCharacter
                 }
             }
 
-            GameloopManager.instance.InvokePlayerShotEvent(shootAction);
+            GameloopManager.instance.InvokePlayerShotAction(shootAction);
         }
 
 
         private void HandlePlayerDash(Vector2 dir)
         {
+
             Vector3 newPos = transform.position + (Vector3)dir * 2f;
             transform.DOMove(newPos, 0.5f);
         }
